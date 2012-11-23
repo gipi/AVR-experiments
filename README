@@ -1,1 +1,16 @@
+This repository will contain projects AVR related.
+
+Each project is contained in a directory of its own and in order to
+compile it you can
+
+ $ cd <project name>
+ $ make -f ../Makefile upload
+
+There are two Makefile since I'm using either bus pirate and Arduino
+as ISP programmer.
+
+Since we are using the Arduino core build system it's mandatory
+to install the appropriate package: in a Debian-like system as
+superuser execute the following command
+
  # apt-get install arduino-mk

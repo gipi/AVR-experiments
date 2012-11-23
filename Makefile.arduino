@@ -1,0 +1,14 @@
+MCU          = atmega328p
+F_CPU        = 16000000
+ARDUINO_PORT = /dev/ttyACM0
+
+AVRDUDE_ARD_PROGRAMMER = arduino
+AVRDUDE_ARD_BAUDRATE   = 115200
+
+
+TARGET = $(shell basename $(PWD))
+
+include /usr/share/arduino/Arduino.mk
+
+check:
+	avrdude -c $(AVRDUDE_ARD_PROGRAMMER) -p m328p -v -P $(ARDUINO_PORT) -b $(AVRDUDE_ARD_BAUDRATE)
