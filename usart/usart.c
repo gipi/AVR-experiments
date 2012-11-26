@@ -15,6 +15,7 @@
 #include <util/delay.h>
 
 
+//#define FOSC 16000000                   // Clock Speed
 #define BAUD 9600                
 #define MYUBRR F_CPU/16/BAUD-1
 
@@ -22,7 +23,7 @@
 unsigned char ReceivedChar;
 
 enum {
- BLINK_DELAY_MS = 1000,
+ BLINK_DELAY_MS = 10,
 };
 
 void blink_setup() {
@@ -30,13 +31,12 @@ void blink_setup() {
  DDRB |= _BV(DDB5);
 }
 
-void blink() {
+void blink_on() {
     PORTB |= _BV(PORTB5);
-    _delay_ms(BLINK_DELAY_MS);
+}
 
-    /* set pin 5 low to turn led off */
+void blink_off() {
     PORTB &= ~_BV(PORTB5);
-    _delay_ms(BLINK_DELAY_MS);
 }
 
 void usart_setup() {
@@ -54,13 +54,24 @@ void usart_transmit(unsigned char data) {
     UDR0 = data;                    // Send the data to the TX buffer
 }
 
+unsigned char usart_receive() {
+    /* wait for data */
+    while ( !(UCSR0A & (1<<RXC0)) )
+        ;
+
+    return UDR0;
+} 
+
 int main( void ) {
     unsigned char c = 0;
     usart_setup();
     blink_setup();
 
     while(1) {
-        blink();
-        usart_transmit(c++);
+        c = usart_receive();
+        blink_on();
+        usart_transmit(c);
+        _delay_ms(BLINK_DELAY_MS);
+        blink_off();
     }
 }
