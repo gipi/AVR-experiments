@@ -12,7 +12,7 @@ AVRDUDE_OPTS           = -v -c $(AVRDUDE_ARD_PROGRAMMER) -p $(MCU) -P $(AVRDUDE_
 CC         = avr-gcc
 OBJCOPY    = avr-objcopy
 DUDE       = avrdude
-CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
+CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -Wall
 
 TARGET = $(shell basename $(PWD))
 
