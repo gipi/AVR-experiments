@@ -9,7 +9,7 @@ AVRDUDE_ARD_BAUDRATE   = 115200
 AVRDUDE_ARD_PORT       = /dev/ttyUSB0
 AVRDUDE_OPTS           = -v -c $(AVRDUDE_ARD_PROGRAMMER) -p $(MCU) -P $(AVRDUDE_ARD_PORT) -b $(AVRDUDE_ARD_BAUDRATE)
 
-CC        = avr-gcc
+CC         = avr-gcc
 OBJCOPY    = avr-objcopy
 DUDE       = avrdude
 CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
@@ -17,10 +17,10 @@ CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
 TARGET = $(shell basename $(PWD))
 
 %.o: %.c
-	$(GCC) $(CPPFLAGS) -c -o $@ $<
+	$(CC) $(CPPFLAGS) -c -o $@ $<
 
 %: %.o
-	$(GCC) $(CPPFLAGS) $< -o $@
+	$(CC) $(CPPFLAGS) $< -o $@
 
 $(TARGET).hex: $(TARGET)
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
