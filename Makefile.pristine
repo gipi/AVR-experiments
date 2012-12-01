@@ -32,4 +32,4 @@ check:
 	$(DUDE) $(AVRDUDE_OPTS)
 
 clean:
-	rm -vfr *.o *.hex
+	rm -vfr *.o *.hex $(TARGET)
