@@ -105,11 +105,9 @@ int main() {
     // we need to debug my love
     pinMode(debugLed, OUPUT);
 
-    unsigned char c = 0;
-
     while (1) {
 
-        serial_write(c++);
+        serial_write(serial_read());
 
         digitalWrite(debugLed, HIGH);
         _delay_ms(100);
