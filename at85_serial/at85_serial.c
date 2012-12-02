@@ -66,7 +66,7 @@ void serial_write(uint8_t data) {
     _delay_us(bit9600Delay);
 }
 
-int serial_read() {
+unsigned char serial_read() {
     unsigned char val = 0;
     int offset;
 
