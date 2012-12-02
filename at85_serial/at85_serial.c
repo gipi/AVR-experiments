@@ -47,8 +47,6 @@ void digitalWrite(uint8_t pin, uint8_t state) {
 #define BAUD              9600
 #define bit9600Delay      100
 #define halfBit9600Delay  bit9600Delay/2
-#define bit4800Delay     188
-#define halfBit4800Delay  94
 
 void serial_write(uint8_t data) {
     uint8_t mask;
