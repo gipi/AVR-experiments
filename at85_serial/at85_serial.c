@@ -24,7 +24,7 @@
 #define OUPUT 1
 
 #define pinMode(n, mode) (DDRB |= (mode << n))
-#define digitalRead(n) (PINB & (1 << n))
+#define digitalRead(n) ((PINB & (1 << n)) != 0)
 
 #if F_CPU == 1000000UL
 #error "1MHz not supported (not reliable communication)"
