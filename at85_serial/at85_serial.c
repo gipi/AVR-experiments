@@ -66,25 +66,28 @@ void serial_write(uint8_t data) {
     _delay_us(bit9600Delay);
 }
 
+// http://saeedsolutions.blogspot.it/2012/07/pic12f675-software-uart-bit-banging.html
 unsigned char serial_read() {
     unsigned char val = 0;
     int offset;
 
+    // wait until a start bit (LOW) is read
     while (digitalRead(RX_PIN));
-    //wait for start bit
-    if (digitalRead(RX_PIN) == LOW) {
-        _delay_us(halfBit9600Delay);
-        for (offset = 0; offset < 8; offset++) {
-            _delay_us(bit9600Delay);
-            val |= digitalRead(RX_PIN) << offset;
-        }
 
-        //wait for stop bit + extra
-        _delay_us(bit9600Delay); 
+    // start bit
+    _delay_us(bit9600Delay);
+    // wait for half an interval
+    _delay_us(halfBit9600Delay);
+    for (offset = 0; offset < 8; offset++) {
+        val |= digitalRead(RX_PIN) << offset;
         _delay_us(bit9600Delay);
-
-        return val;
     }
+
+    //wait for stop bit + extra
+    _delay_us(bit9600Delay);
+    _delay_us(halfBit9600Delay);
+
+    return val;
 }
 
 int main() {
