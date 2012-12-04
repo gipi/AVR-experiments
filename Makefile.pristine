@@ -13,22 +13,23 @@ OBJCOPY    = avr-objcopy
 DUDE       = avrdude
 CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -Wall
 
-TARGET = $(shell basename $(PWD))
 
 %.o: %.c
 	$(CC) $(CPPFLAGS) -c -o $@ $<
 
-%: %.o
+$(TARGET).elf: $(OBJ_FILES)
 	$(CC) $(CPPFLAGS) $< -o $@
 
-$(TARGET).hex: $(TARGET)
+%.hex: %.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-upload: $(TARGET).hex
-	$(DUDE) $(AVRDUDE_OPTS) -F -U flash:w:$(TARGET).hex
+upload: %.hex
+	$(DUDE) $(AVRDUDE_OPTS) -F -U flash:w:$<
 
 check:
 	$(DUDE) $(AVRDUDE_OPTS)
 
 clean:
-	rm -vfr *.o *.hex $(TARGET)
+	rm -vfr *.o *.hex *.elf
+
+all: $(TARGET)
