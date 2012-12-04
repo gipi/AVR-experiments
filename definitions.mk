@@ -13,5 +13,5 @@ CC         = avr-gcc
 OBJCOPY    = avr-objcopy
 AVRSIZE    = avr-size
 DUDE       = avrdude
-CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -Wall
+CPPFLAGS   = -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -Wall -Werror
 
