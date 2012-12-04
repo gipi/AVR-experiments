@@ -1,3 +1,10 @@
+# Core makefile used to compile AVR related C files.
+#
+# This is intended to be include-d from an external makefile that
+# must define at least the TARGET, OBJ_FILES and TARGETS variables.
+#
+# First target is the default
+all: $(TARGETS)
 
 %.o: %.c
 	$(CC) $(CPPFLAGS) -c -o $@ $<
@@ -26,4 +33,4 @@ size: $(TARGET).elf
 clean:
 	rm -vfr *.o *.hex *.elf *.eep
 
-all: $(TARGET)
+.PHONY: all upload_eep upload
