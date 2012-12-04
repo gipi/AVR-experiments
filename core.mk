@@ -20,6 +20,9 @@ upload_eep: $(TARGET).eep
 check:
 	$(DUDE) $(AVRDUDE_OPTS)
 
+size: $(TARGET).elf
+	$(AVRSIZE) --mcu=$(MCU) --format=avr $<
+
 clean:
 	rm -vfr *.o *.hex *.elf *.eep
 
