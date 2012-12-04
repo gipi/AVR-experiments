@@ -22,11 +22,11 @@ int main (void) {
 
  while(1) {
   /* set pin 5 high to turn led on */
-  PORTB |= _BV(PORTB5);
+  PORTB |= _BV(PORTB0);
   _delay_ms(BLINK_DELAY_MS);
 
   /* set pin 5 low to turn led off */
-  PORTB &= ~_BV(PORTB5);
+  PORTB &= ~_BV(PORTB0);
   _delay_ms(BLINK_DELAY_MS);
  }
 
