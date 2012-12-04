@@ -26,10 +26,10 @@ $(TARGET).elf: $(OBJ_FILES)
 %.eep: %.elf
 	$(OBJCOPY) -O ihex -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 $< $@
 
-upload: %.hex
+upload: $(TARGET).hex
 	$(DUDE) $(AVRDUDE_OPTS) -F -U flash:w:$<
 
-upload_eep: %.eep
+upload_eep: $(TARGET).eep
 	$(DUDE) $(AVRDUDE_OPTS) -F -U eeprom:w:$<
 
 check:
