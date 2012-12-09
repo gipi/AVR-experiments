@@ -10,3 +10,8 @@ It's possible to install the dependencies using the
 following command in a Debian-like sistem
 
  # apt-get install gcc-avr binutils-avr avr-libc
+
+In the libraries/ directory are contained some routines very useful
+to AVR projects. Are intended to be incluede in your source code
+and not linked since it's very likely that the F_CPU or MCU values are
+different from what you expect at compile time.
