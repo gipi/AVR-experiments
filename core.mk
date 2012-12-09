@@ -31,6 +31,6 @@ size: $(TARGET).elf
 	$(AVRSIZE) --mcu=$(MCU) --format=avr $<
 
 clean:
-	rm -vfr *.o *.hex *.elf *.eep
+	rm -vfr *.o *.hex *.elf *.eep $(TARGET)
 
 .PHONY: all upload_eep upload
