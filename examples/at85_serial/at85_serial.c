@@ -9,24 +9,7 @@
  */
 #include <avr/io.h>
 #include <util/delay.h>
-
-#define LOW  0
-#define HIGH 1
-
-#define INPUT 0
-#define OUPUT 1
-
-#define pinMode(n, mode) (DDRB |= (mode << n))
-#define digitalRead(n) ((PINB & (1 << n)) != 0)
-
-
-void digitalWrite(uint8_t pin, uint8_t state) {
-    if (state == LOW) {
-        PORTB &= ~(1 << pin);
-    } else {
-        PORTB |= (1 << pin);
-    }
-}
+#include <include/io.h>
 
 
 #define TX_PIN 2
