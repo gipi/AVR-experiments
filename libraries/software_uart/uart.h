@@ -1,4 +1,6 @@
-
+#ifndef __UART_H__
+#define __UART_H__
+#include <include/io.h>
  /*
  * The serial communication code is a modified version of
  * the one from the Arduino site
@@ -65,3 +67,4 @@ unsigned char serial_read() {
 
     return val;
 }
+#endif
