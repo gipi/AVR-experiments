@@ -1,3 +1,6 @@
+/*
+ * Simple example that uses a shift register to show binary counter.
+ */
 #include <util/delay.h>
 #include <include/io.h>
 #include <shift_register/sr.h>
