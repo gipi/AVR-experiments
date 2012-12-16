@@ -1,5 +1,6 @@
 #ifndef __UART_H__
 #define __UART_H__
+#include <avr/io.h>
 #include <include/io.h>
  /*
  * The serial communication code is a modified version of
