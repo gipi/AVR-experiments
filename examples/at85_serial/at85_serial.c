@@ -29,7 +29,7 @@ int main() {
     serial_init();
 
     // we need to debug my love
-    pinMode(debugLed, OUPUT);
+    pinMode(debugLed, OUTPUT);
 
     while (1) {
 
