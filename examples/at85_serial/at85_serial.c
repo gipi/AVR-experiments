@@ -26,10 +26,7 @@ int main() {
     CLKPR = 0x80;
     CLKPR = 0x00;
 
-    // setup serial pins
-    pinMode(RX_PIN, INPUT);
-    pinMode(TX_PIN, OUPUT);
-    digitalWrite(TX_PIN, HIGH);
+    serial_init();
 
     // we need to debug my love
     pinMode(debugLed, OUPUT);

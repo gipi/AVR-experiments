@@ -27,6 +27,17 @@
 #define bit9600Delay      100
 #define halfBit9600Delay  bit9600Delay/2
 
+
+/*
+ * Set the TX as OUTPUT and the RX as INPUT, also the TX HIGH.
+ */
+void serial_init() {
+    // setup serial pins
+    pinMode(RX_PIN, INPUT);
+    pinMode(TX_PIN, OUTPUT);
+    digitalWrite(TX_PIN, HIGH);
+}
+
 void serial_write(uint8_t data) {
     uint8_t mask;
     //startbit
