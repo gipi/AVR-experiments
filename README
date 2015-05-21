@@ -15,3 +15,11 @@ In the libraries/ directory are contained some routines very useful
 to AVR projects. Are intended to be incluede in your source code
 and not linked since it's very likely that the F_CPU or MCU values are
 different from what you expect at compile time.
+
+It's also possible to flash into Arduino this code (not all code will work)
+using the ``PROGRAMMER`` variable:
+
+    $ make PROGRAMMER=arduino
+
+if not indicated will use the ``buspirate``. Obvioulsy the code must set the ``MCU``
+and ``F_CPU`` accordingly.
