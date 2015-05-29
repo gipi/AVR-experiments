@@ -6,8 +6,18 @@
  * Original documentation from atmel: USI at page 108
  *  <http://www.atmel.com/Images/Atmel-2586-AVR-8-bit-Microcontroller-ATtiny25-ATtiny45-ATtiny85_Datasheet.pdf>
  *  <http://www.atmel.com/images/doc2582.pdf>
+ *
+ * In this code we use the 7 segments display from sparkfun, described here <https://learn.sparkfun.com/tutorials/using-the-serial-7-segment-display/all>
+ * and reads the fuse bits and displays it.
  */
-# include <avr/io.h>
+#ifndef __AVR_ATtiny85__
+#error "This code works only on ATTiny85"
+#endif
+
+
+#include <avr/io.h>
+#include <stdio.h>
+#include <avr/boot.h>
 #include <util/delay.h>
 
 
@@ -73,16 +83,48 @@ void show_char(char c) {
 
 void show_four_chars(char* msg) {
     spi_enable_slave();
+
     unsigned short c;
-    for (c = 0 ; c < 4 ; c++) {
-        spi_write(msg[c]);
+    unsigned short extra = 0;
+
+    for (c = 0 ; (c - extra) < 4 ; c++) {
+            spi_write(msg[c]);
     }
     spi_disable_slave();
-    
+}
+
+struct fuse_t {
+    char label[3];
+    unsigned short id;
+};
+
+struct fuse_t fuses[3] = {
+    {.label = "LO", .id = GET_LOW_FUSE_BITS},
+    {.label = "HI", .id = GET_HIGH_FUSE_BITS},
+    {.label = "ES", .id = GET_EXTENDED_FUSE_BITS}
+};
+
+void display_fuse(struct fuse_t fuse) {
+    char tmp[15];
+    uint8_t fuse_value = boot_lock_fuse_bits_get(fuse.id);
+    sprintf(tmp, "%s%2x", fuse.label, fuse_value);
+
+    clear_display();
+    show_four_chars(tmp);
+}
+
+void display_next() {
+    static unsigned short state = 0;
+
+    display_fuse(fuses[state++ % 3]);
 }
 
 int main() {
+
     spi_init();
+
+    // this pin reads  from the button
+    DDRB &= ~_BV(PORTB3);
 
     unsigned int c;
 
@@ -90,12 +132,20 @@ int main() {
 
     clear_display();
 
-    for (c = 0 ; c < 8 ; c++) {
-        show_char('A' + c);
-  _delay_ms(100);
+    for (c = 0 ; c < 4; c++) {
+        clear_display();
+        show_char('0' + c);
+        _delay_ms(50);
     }
 
-    show_four_chars("-HI-");
+    display_next();
+
+    while (1) {
+        if (PINB & _BV(PB3)) {
+            display_next();
+            _delay_ms(50);
+        }
+    }
 
     return 0;
 }
