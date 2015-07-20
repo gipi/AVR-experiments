@@ -30,6 +30,9 @@ check:
 size: $(TARGET).elf
 	$(AVRSIZE) --mcu=$(MCU) --format=avr $<
 
+dump:
+	$(DUDE) $(AVRDUDE_OPTS) -F -U flash:r:dump.bin:r
+
 clean:
 	rm -vfr *.o *.hex *.elf *.eep $(TARGET)
 
