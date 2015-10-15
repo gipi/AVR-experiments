@@ -1,0 +1,10 @@
+
+#ARDUINO_LIBS = Ethernet SPI
+BOARD_TAG    = leonardo
+MONITOR_PORT = /dev/ttyUSB0
+
+ISP_PROG = buspirate
+ISP_PORT = /dev/ttyUSB0
+AVRDUDE_ISP_BAUDRATE   = 115200
+
+include /usr/share/arduino/Arduino.mk
