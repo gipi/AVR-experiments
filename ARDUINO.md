@@ -9,7 +9,8 @@ upload using ``bus pirate`` issuing
 # STANDARD ARDUINO WORKFLOW
 
 Given a normal sketch directory, all you need to do is to create
-a small Makefile which defines a few things, and then includes this one.
+a small Makefile which defines a few things, and then includes
+the ``Arduino.mk`` file.
 
 For example:
 
