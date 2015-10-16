@@ -1,10 +1,20 @@
-
+# Configuration for build a board ATmega32u4 derived
+# with an internal RC without prescaler
+#
 #ARDUINO_LIBS = Ethernet SPI
 BOARD_TAG    = leonardo
 MONITOR_PORT = /dev/ttyUSB0
 
+AVRDUDE_ISP_BAUDRATE   = 115200
+
+F_CPU = 8000000UL
+
 ISP_PROG = buspirate
 ISP_PORT = /dev/ttyUSB0
-AVRDUDE_ISP_BAUDRATE   = 115200
+
+# set_fuse target
+ISP_HIGH_FUSE = 0x99
+ISP_EXT_FUSE  = 0xFB
+ISP_LOW_FUSE  = 0xD2
 
 include /usr/share/arduino/Arduino.mk
