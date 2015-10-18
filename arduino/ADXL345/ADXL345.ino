@@ -1,3 +1,9 @@
+/*
+ * We want to send floating point data over the serial port.
+ * 
+ * we don't know if it's totally reliable sending binary data
+ * because of control code (see <http://stackoverflow.com/questions/3270967/how-to-send-float-over-serial>).
+ */
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_ADXL345_U.h>
@@ -104,7 +110,6 @@ void displayRange(void) {
 
 void setup(void) {
   Serial.begin(9600);
-  Serial.println("Accelerometer Test"); Serial.println("");
   
   /* Initialise the sensor */
   if(!accel.begin()) {
@@ -117,12 +122,8 @@ void setup(void) {
   accel.setRange(ADXL345_RANGE_16_G);
   
   /* Display some basic information on this sensor */
-  displaySensorDetails();
   
   /* Display additional settings (outside the scope of sensor_t) */
-  displayDataRate();
-  displayRange();
-  Serial.println("");
 }
 
 void loop(void) {
@@ -131,9 +132,9 @@ void loop(void) {
   accel.getEvent(&event);
  
   /* Display the results (acceleration is measured in m/s^2) */
-  Serial.print("X: "); Serial.print(event.acceleration.x); Serial.print("  ");
-  Serial.print("Y: "); Serial.print(event.acceleration.y); Serial.print("  ");
-  Serial.print("Z: "); Serial.print(event.acceleration.z); Serial.print("  ");Serial.println("m/s^2 ");
-  delay(500);
-  Serial.write(0xff);
+  Serial.print(event.acceleration.x);Serial.print(" ");
+  Serial.print(event.acceleration.y);Serial.print(" ");
+  Serial.print(event.acceleration.z);
+  Serial.print("\n");
+  delay(100);
 }
