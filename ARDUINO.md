@@ -57,5 +57,8 @@ All sources should be in the current directory and can include:
 
 Included libraries are built in the ``build-{BOARD_TAG}/libs`` subdirectory.
 
+Remember that in order to use Arduino native library I think you should
+use ``cpp`` files.
+
 Besides make upload, there are a couple of other targets that are available.
 Do make help to get the complete list of targets and their description
