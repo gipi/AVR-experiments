@@ -62,3 +62,6 @@ use ``cpp`` files.
 
 Besides make upload, there are a couple of other targets that are available.
 Do make help to get the complete list of targets and their description
+
+In general there are some things that you have to consider when using
+Arduino's libraries, like the ``delay()`` function uses ``Timer0``.
