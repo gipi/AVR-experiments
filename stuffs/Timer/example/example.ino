@@ -9,6 +9,8 @@
 #define CLK 2
 #define DIO 3
 
+#define PLAY 4
+
 TM1637Display display(CLK, DIO);
 
 // this is in seconds
@@ -31,7 +33,10 @@ void showTimer(unsigned int s) {
   display.showNumberDec(seconds2timer(s), true, 4, 0);
 }
 
+int play_button_state = LOW;
+
 void setup() {
+  pinMode(PLAY, INPUT);
   display.setBrightness(0x08);
 
   /*
@@ -68,15 +73,32 @@ void setup() {
   TCCR1B |= (1 << CS12);    // 256 prescaler 
   TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
   interrupts();
+
+  display.showNumberDec(0, true, 4, 0);
 }
 
 void loop() {
-  display.showNumberDec(0, true, 4, 0);
-  while (1);
+  /*
+   * Putting a 10uF capacitor between the button side connected to the pin and the ground
+   * we are able to smooth out the bouncing button.
+   *
+   * In the routine when we read an HIGH (i.e. the button is pressed) we are looping tightly
+   * until we read LOW.
+   */
+  play_button_state = digitalRead(PLAY);
+  if(play_button_state == HIGH) {
+      while(digitalRead(PLAY) == HIGH) {
+          delay(10);
+      }
+
+      play = play == HIGH ? LOW : HIGH;
+  }
+  delay(100);
 }
 
 ISR(TIMER1_OVF_vect) {
-  TCNT1 = timer1_counter; 
-  showTimer(counter--);
+  TCNT1 = timer1_counter;
+  if (play == HIGH)
+    showTimer(counter--);
 }
 
