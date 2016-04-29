@@ -33,6 +33,7 @@ void showTimer(unsigned int s) {
   display.showNumberDec(seconds2timer(s), true, 4, 0);
 }
 
+volatile unsigned int play = LOW;
 int play_button_state = LOW;
 
 void setup() {
