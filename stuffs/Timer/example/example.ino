@@ -13,10 +13,12 @@
 #define INCREASE 5
 #define DECREASE 6
 
+#define ALARM 8
+
 TM1637Display display(CLK, DIO);
 
 // this is in seconds
-unsigned int counter = 3600;
+unsigned int counter = 5;
 int timer1_counter;
 
 struct digits {
@@ -47,9 +49,31 @@ void handle_button(int button, void (*cb)(void)) {
   }
 }
 
+/**
+ * This is buzzer dependent: each buzzer has a specific resonant frequency
+ * that result the most loud.
+ * 
+ * See here <http://www.instructables.com/id/How-to-make-an-Arduino-driven-Piezo-LOUD/>
+ */
+#define SOUND_PARAMETER 300
+
+void sound() {
+  for (int i = 0 ; i < SOUND_PARAMETER; i++) {
+    analogWrite(ALARM, 255);
+    delayMicroseconds(200);
+  
+    analogWrite(ALARM, 0);
+    delayMicroseconds(200);
+  }
+
+  delay(SOUND_PARAMETER);
+}
+
 volatile unsigned int play = LOW;
 int play_button_state = LOW;
 int increase_button_state = LOW;
+
+unsigned int unleash_hell = 0;
 
 void setup() {
   pinMode(PLAY, INPUT);
@@ -96,7 +120,11 @@ void setup() {
 }
 
 void cb_play() {
-  play = play == HIGH ? LOW : HIGH;
+  if (play == LOW && unleash_hell == 1) {
+    unleash_hell = 0;
+  } else {
+    play = play == HIGH ? LOW : HIGH;
+  }
 }
 
 void cb_increase() {
@@ -115,10 +143,20 @@ void loop() {
   delay(100);
 
   showTimer(counter);
+
+  
+  if (unleash_hell) {
+    sound();
+  }
 }
 
 ISR(TIMER1_OVF_vect) {
   TCNT1 = timer1_counter;
+  if (counter == 0 && play == HIGH) {
+    unleash_hell = 1;
+    play = LOW;
+  }
+    
   if (play == HIGH)
     counter--;
 }
