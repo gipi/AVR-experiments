@@ -10,6 +10,8 @@
 #define DIO 3
 
 #define PLAY 4
+#define INCREASE 5
+#define DECREASE 6
 
 TM1637Display display(CLK, DIO);
 
@@ -33,12 +35,27 @@ void showTimer(unsigned int s) {
   display.showNumberDec(seconds2timer(s), true, 4, 0);
 }
 
+
+
+void handle_button(int button, void (*cb)(void)) {
+  int button_state = digitalRead(button);
+  if(button_state == HIGH) {
+      cb();
+      while(digitalRead(button) == HIGH) {
+          delay(10);
+      }
+  }
+}
+
 volatile unsigned int play = LOW;
 int play_button_state = LOW;
+int increase_button_state = LOW;
 
 void setup() {
   pinMode(PLAY, INPUT);
-  display.setBrightness(0x08);
+  pinMode(INCREASE, INPUT);
+  pinMode(DECREASE, INPUT);
+  display.setBrightness(0x0a);
 
   /*
    * PG 122 datasheet ATMega328p <http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Complete.pdf>
@@ -78,28 +95,31 @@ void setup() {
   display.showNumberDec(0, true, 4, 0);
 }
 
+void cb_play() {
+  play = play == HIGH ? LOW : HIGH;
+}
+
+void cb_increase() {
+  counter += 5;
+}
+
 void loop() {
   /*
-   * Putting a 10uF capacitor between the button side connected to the pin and the ground
-   * we are able to smooth out the bouncing button.
-   *
    * In the routine when we read an HIGH (i.e. the button is pressed) we are looping tightly
    * until we read LOW.
    */
-  play_button_state = digitalRead(PLAY);
-  if(play_button_state == HIGH) {
-      while(digitalRead(PLAY) == HIGH) {
-          delay(10);
-      }
+  handle_button(PLAY, cb_play);
 
-      play = play == HIGH ? LOW : HIGH;
-  }
+  handle_button(INCREASE, cb_increase); 
+
   delay(100);
+
+  showTimer(counter);
 }
 
 ISR(TIMER1_OVF_vect) {
   TCNT1 = timer1_counter;
   if (play == HIGH)
-    showTimer(counter--);
+    counter--;
 }
 
