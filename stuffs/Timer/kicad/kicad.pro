@@ -1,4 +1,4 @@
-update=sab 21 mag 2016 18:21:04 CEST
+update=lun 23 mag 2016 16:15:27 CEST
 version=1
 last_client=kicad
 [cvpcb]
@@ -23,6 +23,8 @@ SolderMaskMinWidth=0
 DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=/opt/3043096/kicad/library-repos
@@ -56,5 +58,14 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-[general]
+LibName30=w_device
+[schematic_editor]
 version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
