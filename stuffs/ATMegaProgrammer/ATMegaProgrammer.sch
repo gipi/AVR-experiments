@@ -397,4 +397,8 @@ Text GLabel 4700 3250 0    39   Input ~ 0
 PB7
 Text GLabel 4700 2850 0    39   Input ~ 0
 PB6
+Wire Wire Line
+	4600 3050 4500 3050
+Text GLabel 4500 3050 0    39   Input ~ 0
+GND
 $EndSCHEMATC
