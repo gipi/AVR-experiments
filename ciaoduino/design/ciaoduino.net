@@ -17,7 +17,7 @@
   (components
     (comp (ref SW2)
       (value SW_PUSH)
-      (footprint Buttons_Switches_SMD:SW_SPST_EVQP0)
+      (footprint Buttons_Switches_SMD:SW_SPST_KMR2)
       (libsource (lib device) (part SW_PUSH))
       (sheetpath (names /) (tstamps /))
       (tstamp 56FAE2EC))
@@ -95,7 +95,7 @@
       (tstamp 5709497A))
     (comp (ref P4)
       (value CONN_01X06)
-      (footprint Pin_Headers:Pin_Header_Angled_1x06)
+      (footprint Pin_Headers:Pin_Header_Straight_1x06)
       (libsource (lib conn) (part CONN_01X06))
       (sheetpath (names /) (tstamps /))
       (tstamp 57096811))
@@ -316,10 +316,10 @@
         (pin (num 5) (name GND) (type power_in))
         (pin (num 6) (name shield) (type passive)))))
   (libraries
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib))
     (library (logical atmel)
       (uri /usr/share/kicad/library/atmel.lib)))
   (nets
