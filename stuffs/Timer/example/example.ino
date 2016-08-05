@@ -81,6 +81,7 @@ int increase_button_state = LOW;
 unsigned int unleash_hell = 0;
 
 void setup() {
+  clock_prescale_set(clock_div_2);
   pinMode(PLAY, INPUT);
   pinMode(INCREASE, INPUT);
   pinMode(DECREASE, INPUT);
