@@ -2,6 +2,8 @@
  * http://playground.arduino.cc/Code/Timer1
  * https://github.com/avishorp
  */
+// http://www.nongnu.org/avr-libc/user-manual/group__avr__power.html
+#include <avr/power.h>
 #include <Arduino.h>
 #include <TM1637Display.h>
 
@@ -37,12 +39,15 @@ void showTimer(unsigned int s) {
   display.showNumberDec(seconds2timer(s), true, 4, 0);
 }
 
-
+void updateTimer() {
+  showTimer(counter);
+}
 
 void handle_button(int button, void (*cb)(void)) {
   int button_state = digitalRead(button);
   if(button_state == HIGH) {
       cb();
+      updateTimer();
       while(digitalRead(button) == HIGH) {
           delay(10);
       }
