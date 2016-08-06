@@ -157,7 +157,7 @@ void loop() {
 
   delay(100);
 
-  showTimer(counter);
+  updateTimer();
 
   
   if (unleash_hell) {
