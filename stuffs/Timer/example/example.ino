@@ -17,10 +17,13 @@
 
 #define ALARM 8
 
+#define START 300
+#define DELTA 30
+
 TM1637Display display(CLK, DIO);
 
 // this is in seconds
-unsigned int counter = 5;
+unsigned int counter = START;
 int timer1_counter;
 
 struct digits {
@@ -140,11 +143,11 @@ void cb_play() {
 }
 
 void cb_increase() {
-  counter += 5;
+  counter += DELTA;
 }
 
 void cb_decrease() {
-  counter -= 5;
+  counter -= DELTA;
 
   if (counter < 0) {
     counter = 0;
