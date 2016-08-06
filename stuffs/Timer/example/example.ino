@@ -46,8 +46,14 @@ void updateTimer() {
 void handle_button(int button, void (*cb)(void)) {
   int button_state = digitalRead(button);
   if(button_state == HIGH) {
+      display.setBrightness(0x00);
       cb();
       updateTimer();
+
+      delay(10);
+
+      display.setBrightness(0x0a);
+
       while(digitalRead(button) == HIGH) {
           delay(10);
       }
