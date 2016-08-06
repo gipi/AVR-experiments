@@ -137,6 +137,14 @@ void cb_increase() {
   counter += 5;
 }
 
+void cb_decrease() {
+  counter -= 5;
+
+  if (counter < 0) {
+    counter = 0;
+  }
+}
+
 void loop() {
   /*
    * In the routine when we read an HIGH (i.e. the button is pressed) we are looping tightly
@@ -145,6 +153,7 @@ void loop() {
   handle_button(PLAY, cb_play);
 
   handle_button(INCREASE, cb_increase); 
+  handle_button(DECREASE, cb_decrease);
 
   delay(100);
 
