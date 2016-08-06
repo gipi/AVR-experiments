@@ -90,7 +90,7 @@ int increase_button_state = LOW;
 unsigned int unleash_hell = 0;
 
 void setup() {
-  clock_prescale_set(clock_div_2);
+  clock_prescale_set(clock_div_1);
   pinMode(PLAY, INPUT);
   pinMode(INCREASE, INPUT);
   pinMode(DECREASE, INPUT);
@@ -124,7 +124,9 @@ void setup() {
   TCCR1B = 0;
 
   // Set timer1_counter to the correct value for our interrupt interval
-  timer1_counter = 3035;
+  // the calculation is 1/16M*(65535-3035)*256 = 1
+  // timer1_counter = 3035; For 16MHz
+  timer1_counter = 34285; // For 8MHz
 
   TCNT1 = timer1_counter;   // preload timer
   TCCR1B |= (1 << CS12);    // 256 prescaler 
@@ -168,7 +170,6 @@ void loop() {
 
   updateTimer();
 
-  
   if (unleash_hell) {
     sound();
   }
