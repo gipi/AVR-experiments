@@ -1,4 +1,4 @@
-update=sab 09 apr 2016 15:47:13 CEST
+update=lun 02 gen 2017 10:03:42 CET
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=/opt/3043096/kicad/library-repos
+LibDir=/opt/3043096/kicad/library-repos;/opt/3043096/kicad/kicadlibrary;/opt/3043096/kicad/kicad-lib
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -58,3 +58,26 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
+LibName30=open-project
+LibName31=components/_antenna
+LibName32=components/_audio
+LibName33=components/_charge-pump-regulators
+LibName34=components/Comp2014
+LibName35=components/_connectors
+LibName36=components/cvra
+LibName37=components/_discrete
+LibName38=components/_div
+LibName39=components/_ic
+LibName40=components/IRF
+LibName41=components/_linear-regulators
+LibName42=components/logo
+LibName43=components/Mec
+LibName44=components/_motor_drivers
+LibName45=components/National
+LibName46=components/phoenix
+LibName47=components/power
+LibName48=components/_power
+LibName49=components/_sensors
+LibName50=components/_stm32
+LibName51=components/_transceiver
+LibName52=components/_wireless

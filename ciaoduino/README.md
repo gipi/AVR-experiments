@@ -18,6 +18,13 @@ We want to reorganize pins by protocols/functionality
  - ADC
  - Interrupts
 
+## Power management
+
+We want to use USB and LiPo battery
+
+ - http://blog.zakkemble.co.uk/a-lithium-battery-charger-with-load-sharing/
+ - http://ww1.microchip.com/downloads/en/AppNotes/01149c.pdf
+
 ## Kicad files
 
 The new version will come with a redesign in ``Kicad`` (look at the directory [design/](design)).
